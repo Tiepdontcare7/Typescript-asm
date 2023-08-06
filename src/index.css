@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.container {
+    @apply flex h-screen border-e bg-white
+}
+
+.container-right {
+    @apply w-[100%] h-full p-7
+}

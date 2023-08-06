@@ -1,0 +1,68 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Product 1",
+      "price": "100000",
+      "image": "https://thptphanvantri.edu.vn/hinh-anh-dang-yeu-cua-be/imager_792.jpg",
+      "description": "Description 1",
+      "categoryId": "1"
+    },
+    {
+      "id": 2,
+      "name": "Product 2",
+      "price": 200,
+      "image": "https://cdn.nguyenkimmall.com/images/detailed/555/may-anh-cho-nguoi-moi.jpg",
+      "description": "Description 2",
+      "categoryId": "2"
+    },
+    {
+      "id": 3,
+      "name": "Product 393",
+      "price": 300,
+      "image": "https://bizweb.dktcdn.net/100/354/778/files/chup-may-anh-film-4-jpeg.jpg?v=1624951642218",
+      "description": "Description 333",
+      "categoryId": "1"
+    },
+    {
+      "id": 4,
+      "name": "Product 393",
+      "price": 300,
+      "image": "https://kenh14cdn.com/thumb_w/660/2020/7/17/brvn-15950048783381206275371.jpg",
+      "description": "Description 333",
+      "categoryId": "1"
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Danh muc 1"
+    },
+    {
+      "id": 2,
+      "name": "Danh muc 2"
+    },
+    {
+      "name": "hyhyhyhy",
+      "id": 3
+    }
+  ],
+  "users": [
+    {
+      "username": "tieptn9",
+      "password": "$2a$07$PTxdaQKhHbPB464sEMl5o.cF0a.kt7vPaYC3TRaofGMxzqWHve6a.",
+      "roleId": "1",
+      "id": 1
+    }
+  ],
+  "roles": [
+    {
+      "id": 1,
+      "name": "admin"
+    },
+    {
+      "id": 0,
+      "name": "user"
+    }
+  ]
+}
