@@ -8,6 +8,11 @@ const SideBar = () => {
                     Logo
                 </span>
                 <ul className="mt-6 space-y-1">
+                    <li>
+                        <Link to="/" className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700">
+                            Home Page
+                        </Link>
+                    </li>
 
                     <li>
                         <Link to="/admin/dashboard" className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700">
