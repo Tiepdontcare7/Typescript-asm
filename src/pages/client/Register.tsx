@@ -33,7 +33,7 @@ function Register() {
             data.cfpassword = undefined;
             data.password = await bcryptjs.hash(data.password, 7)
             data.roleId = "0";
-            
+
             addUser(data)
                 .then((res) => {
                     dispatch(addUserss(res.data))

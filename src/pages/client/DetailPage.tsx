@@ -1,13 +1,12 @@
 import { useEffect } from 'react'
-import Header from "../../components/Client/Header"
-import CTAs from "../../components/Client/CTAs"
-import Footer from "../../components/Client/Footer"
+import { Header, CTAs, Footer } from '../../components/Client'
 import { useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
+import { IProduct } from '../../types/products'
 
 const DetailPage = () => {
     const { id } = useParams();
-    const listProduct = useSelector(state => state.product.listProduct)
+    const listProduct = useSelector((state: { product: { listProduct: IProduct[] } }) => state.product.listProduct)
 
     const productDetail = listProduct.find(p => p.id === +id)
 

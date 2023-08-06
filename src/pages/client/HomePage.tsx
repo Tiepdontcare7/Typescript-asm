@@ -1,12 +1,10 @@
-import Header from "../../components/Client/Header"
-import Banner from "../../components/Client/Banner"
-import CTAs from "../../components/Client/CTAs"
-import Footer from "../../components/Client/Footer"
+import {Header, Banner, CTAs, Footer} from '../../components/Client'
 import { Link } from "react-router-dom"
 import { useSelector } from "react-redux"
+import { IProduct } from '../../types/products'
 
 const HomePage = () => {
-    const listProduct = useSelector(state => state.product.listProduct)
+    const listProduct = useSelector((state: { product: { listProduct: IProduct[] } }) => state.product.listProduct)
 
     return (
         <>

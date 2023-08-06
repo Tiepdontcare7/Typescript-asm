@@ -5,33 +5,37 @@ import { Link, useNavigate } from 'react-router-dom'
 import bcryptjs from 'bcryptjs'
 
 interface IUser {
-    id: number,
+    id?: number,
     username: string,
     password: number,
-    roleId: number
+    roleId?: number
+}
+
+interface Idata {
+    username: string,
+    password: string
 }
 
 function Login() {
-    const { register, handleSubmit, formState: { errors } } = useForm()
+    const { register, handleSubmit, formState: { errors } } = useForm<Idata>()
     const next = useNavigate()
 
     const listUser = useSelector((state: { user: { listUser: IUser[] } }) => state.user.listUser);
 
-    const onHandleAdd = async (data:any) => {
-        const filUser = listUser.find(a => a.username === data.username)
-        if(filUser){
+    const onHandleAdd:(data: Idata) => void = async(data:Idata) => {
+        const filUser:IUser | undefined = listUser.find(a => a.username === data.username)
+        if (filUser) {
             const checkPassword = await bcryptjs.compare(data.password, filUser.password)
-            if(!checkPassword) {
+            if (!checkPassword) {
                 alert('Sai mật khẩu, kiểm tra lại!')
-            }else{
+            } else {
                 alert('Đăng nhập thành công!')
                 localStorage.setItem('username', filUser.username)
                 next('/')
             }
-        }else{
+        } else {
             confirm('Tài khoản không hợp lệ, bạn có muốn đăng ký không?') ? next('/register') : undefined
         }
-        
     }
     return (
         <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
@@ -52,7 +56,7 @@ function Login() {
                     <input {...register('password', { required: true })} type="password" className="w-full border rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-sm" placeholder="Enter password" />
                     {errors.password?.type === 'required' && <span className='text-red-500'>Không được bỏ trống password!</span>}
                 </div>
-                
+
                 <div className='text-sm'>
                     Bạn chưa có tài khoản? <Link to={'/register'} className='text-blue-700 cursor-pointer'>Đăng ký</Link>
                 </div>
