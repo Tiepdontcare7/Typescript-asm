@@ -1,7 +1,22 @@
 import { Link } from "react-router-dom"
+import { useSelector } from "react-redux";
+
+interface IUser {
+    id: number,
+    username: string,
+    password: number,
+    roleId: number
+}
+
 
 const Header = () => {
     const usernameLocal = localStorage.getItem("username")
+
+    const listUser = useSelector((state: { user: { listUser: IUser[] } }) => state.user.listUser);
+
+    // if (usernameLocal) {
+        const checkAdmin = listUser.find(u => u.username == usernameLocal)
+    // }
 
     const deleteLocal = () => {
         localStorage.removeItem("username")
@@ -55,14 +70,18 @@ const Header = () => {
                         {usernameLocal
                             ? (<div className="cursor-pointer" onClick={deleteLocal}>Wellcom, {usernameLocal}</div>)
                             : (<div className="sm:flex sm:gap-4">
-                                    <Link to={'/login'} className="block rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700" href="/">
-                                        Login
-                                    </Link>
-                                    <Link to={'/register'} className="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block" href="/">
-                                        Register
-                                    </Link>
-                                </div>
-                        )}
+                                <Link to={'/login'} className="block rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700" href="/">
+                                    Login
+                                </Link>
+                                <Link to={'/register'} className="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block" href="/">
+                                    Register
+                                </Link>
+                            </div>
+                            )}
+                        
+                        {
+                            checkAdmin?.roleId == 1 ? (<Link className="cursor-pointer bg-slate-700 text-white p-1 px-2 text-sm rounded" to={'/admin/dashboard'}>admin</Link>) : undefined 
+                        }
                         <button className="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden">
                             <span className="sr-only">Toggle menu</span>
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

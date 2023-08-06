@@ -25,7 +25,7 @@ const categorySlice = createSlice({
             state.loading = false;
             const index = state.listCategory.findIndex(i => i.id == action.payload.id)
             if (index !== -1) {
-                state.listCategory[index] = action.payload.name
+                state.listCategory[index] = action.payload
             }
         }
     }
