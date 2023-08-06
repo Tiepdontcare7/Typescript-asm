@@ -3,15 +3,13 @@ import { useDispatch } from "react-redux"
 import { AddProductPage, DashboardPage, CategoryPage, ListUserPage, EditProduct, AddCategory, EditCategory, AddUser, EditUser } from "./pages/admin"
 import { getAllProduct } from './api/products'
 import { getAllCategory } from "./api/category";
-import { postProducts } from "./redux/productSlice";
-import { postCategoryProducts } from "./redux/categoryProductSlice";
-import NotFoundPage from "./pages/404/notFound";
 import { getAllUser } from "./api/user";
+import { postCategoryProducts } from "./redux/categoryProductSlice";
+import { postProducts } from "./redux/productSlice";
 import { postUser } from "./redux/userSlice";
-import HomePage from "./pages/client/HomePage";
-import DetailPage from "./pages/client/DetailPage";
-import Register from "./pages/client/Register";
-import Login from "./pages/client/Login";
+import {HomePage, DetailPage, Register, Login} from './pages/client'
+import NotFoundPage from "./pages/404/notFound";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -43,7 +41,7 @@ function App() {
 
           <Route path="/register" element={< Register />} />
           <Route path="/login" element={< Login />} />
-
+          
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>

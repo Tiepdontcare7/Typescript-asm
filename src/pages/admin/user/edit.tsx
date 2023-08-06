@@ -59,7 +59,7 @@ const EditUser = () => {
                 </div>
             </form>
         </div>
-  )
+)
 }
 
 export default EditUser

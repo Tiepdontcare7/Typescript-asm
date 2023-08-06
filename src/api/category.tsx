@@ -7,11 +7,12 @@ const getAllCategory = () => {
 const addCategory = (obj: object) => {
     return instance.post('/categories', obj)
 }
-const editCategory = (id: number | string,obj: object) => {
+const editCategory = (id: number | string, obj: object) => {
     return instance.put(`/categories/${id}`, obj)
 }
 
 const deleteCategory = (id: number | string) => {
     return instance.delete(`/categories/${id}`)
 }
-export { getAllCategory , addCategory, editCategory, deleteCategory}
+
+export { getAllCategory, addCategory, editCategory, deleteCategory }

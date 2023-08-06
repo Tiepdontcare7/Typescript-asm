@@ -1,10 +1,8 @@
 
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import bcryptjs from 'bcryptjs'
-// import { addUser } from '../../api/user'
-// import { addUserss } from '../../redux/userSlice'
 
 interface IUser {
     id: number,
@@ -16,11 +14,10 @@ interface IUser {
 function Login() {
     const { register, handleSubmit, formState: { errors } } = useForm()
     const next = useNavigate()
-    const dispatch = useDispatch()
 
     const listUser = useSelector((state: { user: { listUser: IUser[] } }) => state.user.listUser);
 
-    const onHandleAdd = async (data: any) => {
+    const onHandleAdd = async (data:any) => {
         const filUser = listUser.find(a => a.username === data.username)
         if(filUser){
             const checkPassword = await bcryptjs.compare(data.password, filUser.password)
@@ -54,6 +51,10 @@ function Login() {
                 <div>
                     <input {...register('password', { required: true })} type="password" className="w-full border rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-sm" placeholder="Enter password" />
                     {errors.password?.type === 'required' && <span className='text-red-500'>Không được bỏ trống password!</span>}
+                </div>
+                
+                <div className='text-sm'>
+                    Bạn chưa có tài khoản? <Link to={'/register'} className='text-blue-700 cursor-pointer'>Đăng ký</Link>
                 </div>
 
                 <div className="flex items-center justify-center">

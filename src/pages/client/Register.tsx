@@ -1,8 +1,8 @@
 
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
 import bcryptjs from 'bcryptjs'
+import { useNavigate, Link } from 'react-router-dom'
 import { addUser } from '../../api/user'
 import { addUserss } from '../../redux/userSlice'
 
@@ -65,6 +65,10 @@ function Register() {
                 <div>
                     <input {...register('cfpassword', { required: true })} type="password" className="w-full border rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-sm" placeholder="Enter confirm password" />
                     {errors.cfpassword?.type === 'required' && <span className='text-red-500'>Không được bỏ trống password!</span>}
+                </div>
+
+                <div className='text-sm'>
+                    Bạn đã có tài khoản? <Link to={'/login'} className='text-blue-700 cursor-pointer'>Đăng nhập</Link>
                 </div>
 
                 <div className="flex items-center justify-center">
