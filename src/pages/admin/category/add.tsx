@@ -1,30 +1,33 @@
-import { useDispatch } from 'react-redux'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { useDispatchAndNext, trimData } from '../../../utils'
 import { addCategorys } from '../../../redux/categoryProductSlice'
 import { addCategory } from '../../../api/category'
+
 interface Icategory {
     name: string
 }
 
 const AddCategory = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<Icategory>({ shouldUnregister: false })
-    const next = useNavigate()
-    const dispatch = useDispatch()
+    const { dispatch, next } = useDispatchAndNext()
 
-    const onHandleAdd:SubmitHandler<Icategory> = (data) => {
-        
-        const cleanedData = {};
-        Object.keys(data).forEach(key => {
-            cleanedData[key] = data[key].trim()
-        });
-        
-        addCategory(cleanedData)
-            .then((res) => {
-                dispatch(addCategorys(res.data))
-                alert('Add Category Success')
-                next('/admin/product/category')
-            })
+    const listCategory = useSelector((state: { category: { listCategory: Icategory[] } }) => state.category.listCategory)
+
+    const onHandleAdd: SubmitHandler<Icategory> = (data) => {
+        const cleanedData = trimData(data)
+        const filLCate: Icategory | undefined = listCategory.find((c: { name: string }) => c.name === cleanedData.name)
+
+        if (filLCate) {
+            alert('Danh mục đã tồn tại!')
+        } else {
+            addCategory(cleanedData)
+                .then((res) => {
+                    dispatch(addCategorys(res.data))
+                    alert('Add Category Success')
+                    next('/admin/product/category')
+                })
+        }
     }
     return (
         <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">

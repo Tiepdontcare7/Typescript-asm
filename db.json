@@ -43,18 +43,14 @@
       "name": "Danh muc 2"
     },
     {
-      "name": "Tiến bip",
-      "id": 3
-    },
-    {
-      "name": "ff",
+      "name": "fffff",
       "id": 4
     }
   ],
   "users": [
     {
       "username": "tieptn9",
-      "password": "$2a$07$PTxdaQKhHbPB464sEMl5o.cF0a.kt7vPaYC3TRaofGMxzqWHve6a.",
+      "password": "$2a$07$ei9jT8uTfiHwZhZJxSguKOCnFDBJUvryMADwjrSlBQXGzyYebfDoS",
       "roleId": "1",
       "id": 1
     }

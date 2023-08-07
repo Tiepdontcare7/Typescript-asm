@@ -1,9 +1,9 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
 import { addUser } from '../../../api/user'
 import { addUserss } from '../../../redux/userSlice'
 import bcryptjs from 'bcryptjs'
+import { trimData, useDispatchAndNext } from '../../../utils'
 
 interface IUser {
     id: number,
@@ -13,18 +13,14 @@ interface IUser {
 }
 
 const AddUser = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm({shouldUnregister: false})
-    const next = useNavigate()
-    const dispatch = useDispatch()
+    const { register, handleSubmit, formState: { errors } } = useForm({ shouldUnregister: false })
+    const {dispatch, next} = useDispatchAndNext()
 
     const listUser = useSelector((state: { user: { listUser: IUser[] } }) => state.user.listUser);
 
-    const onHandleAdd = async (data:any) => {
-        const cleanedData:any = {};
-        Object.keys(data).forEach(key => {
-            cleanedData[key] = typeof data[key] === "string" ? data[key].trim() : data[key];
-        });
-        
+    const onHandleAdd = async (data: any) => {
+        const cleanedData: any = trimData(data)
+
         const filUser = listUser.find(a => a.username === cleanedData.username)
 
         if (filUser) {
@@ -61,15 +57,15 @@ const AddUser = () => {
                 </div>
 
                 <div>
-                    <input {...register('password', { required: true, minLength: 5 })} type="password" className="w-full border rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-sm" placeholder="Enter password" />
+                    <input {...register('password', { required: true, minLength: 4 })} type="password" className="w-full border rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-sm" placeholder="Enter password" />
                     {errors.password?.type === 'required' && <span className='text-red-500'>Không được bỏ trống password!</span>}
-                    {errors.password?.type === 'required' && <span className='text-red-500'>Nhập tối thiểu 5 kí tự!</span>}
+                    {errors.password?.type === 'minLength' && <span className='text-red-500'>Nhập tối thiểu 4 kí tự!</span>}
                 </div>
 
                 <div>
-                    <input {...register('cfpassword', { required: true, minLength: 5 })} type="password" className="w-full border rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-sm" placeholder="Enter confirm password" />
+                    <input {...register('cfpassword', { required: true, minLength: 4 })} type="password" className="w-full border rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-sm" placeholder="Enter confirm password" />
                     {errors.cfpassword?.type === 'required' && <span className='text-red-500'>Không được bỏ trống password!</span>}
-                    {errors.cfpassword?.type === 'required' && <span className='text-red-500'>Nhập tối thiểu 5 kí tự!</span>}
+                    {errors.cfpassword?.type === 'minLength' && <span className='text-red-500'>Nhập tối thiểu 4 kí tự!</span>}
                 </div>
 
                 <div>

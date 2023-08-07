@@ -1,21 +1,19 @@
 import { useForm } from 'react-hook-form'
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { IProduct, ICategory } from '../../../types/products'
 import { editProduct } from '../../../api/products'
-import { useNavigate } from 'react-router-dom'
+import { trimData, useDispatchAndNext } from '../../../utils'
 import { editProducts } from '../../../redux/productSlice'
 
 const EditProduct = () => {
     const { register, reset, handleSubmit, formState: { errors } } = useForm({ shouldUnregister: false })
     const { id } = useParams()
-    const next = useNavigate()
-    const dispatch = useDispatch()
+    const {dispatch, next} = useDispatchAndNext();
 
     const listProduct = useSelector((state: { product: { listProduct: IProduct[] } }) => state.product.listProduct);
     const listCategory = useSelector((state: { category: { listCategory: ICategory[] } }) => state.category.listCategory);
-
 
     useEffect(() => {
         const detailProduct = listProduct.find(p => p.id === +id)
@@ -23,14 +21,10 @@ const EditProduct = () => {
     }, [listProduct, id, reset]);
 
     const onHandleEdit = (data: object) => {
-        const cleanedData = {};
-        Object.keys(data).forEach(key => {
-            cleanedData[key] = typeof data[key] === "string" ? data[key].trim() : data[key];
-        });
+        const cleanedData = trimData(data)
 
         editProduct(+id, cleanedData)
             .then((res) => {
-                // console.log(res.data);
                 dispatch(editProducts(res.data))
                 alert('Edit Product Success')
                 next('/admin/dashboard')

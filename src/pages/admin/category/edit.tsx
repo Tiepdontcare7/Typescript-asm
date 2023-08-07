@@ -1,6 +1,7 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import {useForm} from 'react-hook-form'
-import { useNavigate, useParams } from 'react-router-dom'
+import { trimData, useDispatchAndNext } from '../../../utils'
+import { useParams } from 'react-router-dom'
 import { ICategory } from '../../../types/products'
 import { editCategorys } from '../../../redux/categoryProductSlice'
 import { editCategory } from '../../../api/category'
@@ -8,8 +9,7 @@ import { useEffect } from 'react'
 
 const EditCategory = () => {
     const {register, handleSubmit,reset, formState:{errors}} = useForm({ shouldUnregister: false })
-    const next = useNavigate()
-    const dispatch = useDispatch()
+    const {dispatch, next} = useDispatchAndNext()
     const {id} = useParams()
 
     const listCategory = useSelector((state: { category: { listCategory: ICategory[] } }) => state.category.listCategory);
@@ -19,10 +19,7 @@ const EditCategory = () => {
     }, [id, reset, listCategory])
 
     const onHandleAdd = (data:object) => {
-        const cleanedData = {};
-        Object.keys(data).forEach(key => {
-            cleanedData[key] = typeof data[key] === "string" ? data[key].trim() : data[key];
-        });
+        const cleanedData = trimData(data)
 
         editCategory(+id , cleanedData)
         .then((res) => {

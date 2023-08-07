@@ -1,9 +1,10 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import {useForm} from 'react-hook-form'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import { editUser } from '../../../api/user'
 import { editUserss } from '../../../redux/userSlice'
+import { trimData, useDispatchAndNext } from '../../../utils'
 
 interface IUser {
     id: string | number,
@@ -13,8 +14,7 @@ interface IUser {
 
 const EditUser = () => {
     const {register, handleSubmit,reset, formState:{errors}} = useForm({shouldUnregister: false})
-    const next = useNavigate()
-    const dispatch = useDispatch()
+    const {dispatch, next} = useDispatchAndNext()
     const {id} = useParams()
 
     const listUser = useSelector((state: { user: { listUser: IUser[] } }) => state.user.listUser);
@@ -24,10 +24,7 @@ const EditUser = () => {
     }, [id, reset, listUser])
 
     const onHandleAdd = (data:object) => {
-        const cleanedData:any = {};
-        Object.keys(data).forEach(key => {
-            cleanedData[key] = typeof data[key] === "string" ? data[key].trim() : data[key];
-        });
+        const cleanedData = trimData(data)
 
         editUser(+id , cleanedData)
         .then((res) => {

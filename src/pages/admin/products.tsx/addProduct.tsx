@@ -1,9 +1,10 @@
 import { Button, Form, Input, Select } from 'antd';
 import { IProduct, ICategory } from '../../../types/products';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useDispatchAndNext } from '../../../utils';
 import { addProduct } from '../../../api/products';
 import { addProducts } from '../../../redux/productSlice';
+import { trimData } from '../../../utils';
 
 const { Option } = Select;
 
@@ -16,17 +17,12 @@ type FieldType = {
 };
 
 const AddProductPage = () => {
-    const dispatch = useDispatch()
-    const next = useNavigate()
+    const {dispatch, next} = useDispatchAndNext()
 
     const listCategory = useSelector((state: { category: { listCategory: ICategory[] } }) => state.category.listCategory);
 
     const onFinish = (values: IProduct) => {
-        const cleanedData = {};
-        Object.keys(values).forEach(key => {
-            cleanedData[key] = typeof values[key] === "string" ? values[key].trim() : values[key];
-        });
-
+        const cleanedData:any = trimData(values)
         addProduct(cleanedData)
             .then((res) => {
                 dispatch(addProducts(res.data))
