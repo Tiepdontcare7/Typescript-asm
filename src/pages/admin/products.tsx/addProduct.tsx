@@ -41,7 +41,7 @@ const AddProductPage = () => {
             name="basic"
             labelCol={{ span: 8 }}
             wrapperCol={{ span: 16 }}
-            style={{ maxWidth: 700, margin: "150px auto", border: "1px solid #666", borderRadius: "5px", padding: "50px 50px 50px 0" }}
+            style={{ maxWidth: 700, margin: "150px auto", border: "1px solid #999",boxShadow: "0 0 10px #ccc" , borderRadius: "5px", padding: "40px 130px 40px 0" }}
             initialValues={{ remember: true }}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
@@ -60,7 +60,7 @@ const AddProductPage = () => {
                 name="price"
                 rules={[{ required: true, message: 'Please input your price!' }]}
             >
-                <Input />
+                <Input type='number' />
             </Form.Item>
 
             <Form.Item<FieldType>
@@ -94,7 +94,7 @@ const AddProductPage = () => {
 
             <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                 <Button style={{ backgroundColor: '#744898' }} type="primary" htmlType="submit">
-                    Submit
+                    Add Product
                 </Button>
             </Form.Item>
         </Form>

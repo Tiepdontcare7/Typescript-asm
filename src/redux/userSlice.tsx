@@ -27,7 +27,6 @@ const userSlice = createSlice({
             if(index !== -1) {
                 state.listUser[index] = action.payload;
             }
-
         }
     }
 })

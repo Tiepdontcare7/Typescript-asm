@@ -26,11 +26,11 @@
     },
     {
       "id": 4,
-      "name": "Trâu",
+      "name": "Trâu q",
       "price": "300",
       "image": "https://kenh14cdn.com/thumb_w/660/2020/7/17/brvn-15950048783381206275371.jpg",
       "description": "Description 333",
-      "categoryId": "3"
+      "categoryId": "1"
     }
   ],
   "categories": [
@@ -43,7 +43,7 @@
       "name": "Danh muc 2"
     },
     {
-      "name": "Tiến bip 3333",
+      "name": "Tiến bip",
       "id": 3
     }
   ],
@@ -53,12 +53,6 @@
       "password": "$2a$07$PTxdaQKhHbPB464sEMl5o.cF0a.kt7vPaYC3TRaofGMxzqWHve6a.",
       "roleId": "1",
       "id": 1
-    },
-    {
-      "username": "tatiep179@gmail.com",
-      "password": "$2a$07$9Ri1CDCtGkFYhvkkUAjpEemRqLQ.oSO2FQTZR0/KfTFxzZh2ODEu.",
-      "roleId": "0",
-      "id": 2
     }
   ],
   "roles": [
