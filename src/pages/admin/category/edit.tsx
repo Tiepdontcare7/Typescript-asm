@@ -7,7 +7,7 @@ import { editCategory } from '../../../api/category'
 import { useEffect } from 'react'
 
 const EditCategory = () => {
-    const {register, handleSubmit,reset, formState:{errors}} = useForm()
+    const {register, handleSubmit,reset, formState:{errors}} = useForm({ shouldUnregister: false })
     const next = useNavigate()
     const dispatch = useDispatch()
     const {id} = useParams()
@@ -19,7 +19,12 @@ const EditCategory = () => {
     }, [id, reset, listCategory])
 
     const onHandleAdd = (data:object) => {
-        editCategory(+id , data)
+        const cleanedData = {};
+        Object.keys(data).forEach(key => {
+            cleanedData[key] = typeof data[key] === "string" ? data[key].trim() : data[key];
+        });
+
+        editCategory(+id , cleanedData)
         .then((res) => {
             dispatch(editCategorys(res.data))
             alert('Edit Category Success')
@@ -37,8 +42,9 @@ const EditCategory = () => {
             </div>
             <form action="" onSubmit={handleSubmit(onHandleAdd)} className="mx-auto mb-0 mt-8 max-w-md p-9 space-y-4 border border-[#ccc] rounded shadow-xl">
                 <div>
-                    <input {...register('name', {required: true})} type="text" className="w-full border rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-sm" placeholder="Enter name product" />
+                    <input {...register('name', {required: true, minLength: 3})} type="text" className="w-full border rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-sm" placeholder="Enter name product" />
                     {errors.name?.type === 'required' && <span className='text-red-500'>Không được bỏ trống!</span>}
+                    {errors.name?.type === 'minLength' && <span className='text-red-500'>Name tối thiểu 3 kí tự!</span>}
                 </div>
 
                 <div className="flex items-center justify-center">

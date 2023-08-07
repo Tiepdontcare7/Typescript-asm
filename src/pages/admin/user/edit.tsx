@@ -12,7 +12,7 @@ interface IUser {
 }
 
 const EditUser = () => {
-    const {register, handleSubmit,reset, formState:{errors}} = useForm()
+    const {register, handleSubmit,reset, formState:{errors}} = useForm({shouldUnregister: false})
     const next = useNavigate()
     const dispatch = useDispatch()
     const {id} = useParams()
@@ -24,7 +24,12 @@ const EditUser = () => {
     }, [id, reset, listUser])
 
     const onHandleAdd = (data:object) => {
-        editUser(+id , data)
+        const cleanedData:any = {};
+        Object.keys(data).forEach(key => {
+            cleanedData[key] = typeof data[key] === "string" ? data[key].trim() : data[key];
+        });
+
+        editUser(+id , cleanedData)
         .then((res) => {
             dispatch(editUserss(res.data))
             alert('Edit User Success')

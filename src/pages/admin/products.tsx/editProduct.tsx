@@ -1,5 +1,5 @@
-import {useForm} from 'react-hook-form'
-import {useEffect} from 'react'
+import { useForm } from 'react-hook-form'
+import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { IProduct, ICategory } from '../../../types/products'
@@ -8,28 +8,33 @@ import { useNavigate } from 'react-router-dom'
 import { editProducts } from '../../../redux/productSlice'
 
 const EditProduct = () => {
-    const {register, reset, handleSubmit, formState:{errors}} = useForm()
-    const {id} = useParams()
+    const { register, reset, handleSubmit, formState: { errors } } = useForm({ shouldUnregister: false })
+    const { id } = useParams()
     const next = useNavigate()
     const dispatch = useDispatch()
 
     const listProduct = useSelector((state: { product: { listProduct: IProduct[] } }) => state.product.listProduct);
     const listCategory = useSelector((state: { category: { listCategory: ICategory[] } }) => state.category.listCategory);
 
-    
+
     useEffect(() => {
-        const detailProduct = listProduct.find(p => p.id === +id )
+        const detailProduct = listProduct.find(p => p.id === +id)
         reset(detailProduct)
     }, [listProduct, id, reset]);
 
-    const onHandleEdit = (data:object) => {
-        editProduct(+id, data)
-        .then((res) => {
-            // console.log(res.data);
-            dispatch(editProducts(res.data))
-            alert('Edit Product Success')
-            next('/admin/dashboard')
-        })
+    const onHandleEdit = (data: object) => {
+        const cleanedData = {};
+        Object.keys(data).forEach(key => {
+            cleanedData[key] = typeof data[key] === "string" ? data[key].trim() : data[key];
+        });
+
+        editProduct(+id, cleanedData)
+            .then((res) => {
+                // console.log(res.data);
+                dispatch(editProducts(res.data))
+                alert('Edit Product Success')
+                next('/admin/dashboard')
+            })
     }
 
     return (
@@ -44,22 +49,24 @@ const EditProduct = () => {
             </div>
             <form action="" onSubmit={handleSubmit(onHandleEdit)} className="mx-auto mb-0 mt-8 max-w-md p-9 space-y-4 border border-[#ccc] rounded shadow-xl">
                 <div>
-                    <input {...register('name', {required: true})} type="text" className="w-full border rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-sm" placeholder="Enter name product" />
+                    <input {...register('name', { required: true, minLength: 3 })} type="text" className="w-full border rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-sm" placeholder="Enter name product" />
+                    {errors.name?.type === 'required' && <span className='text-red-500'>Không được bỏ trống!</span>}
+                    {errors.name?.type === 'minLength' && <span className='text-red-500'>Nhập tối thiểu 3 kí tự!</span>}
+                </div>
+
+                <div>
+                    <input {...register('price', { required: true })} type="text" className="w-full border rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-sm" placeholder="Enter price product" />
                     {errors.name?.type === 'required' && <span className='text-red-500'>Không được bỏ trống!</span>}
                 </div>
 
                 <div>
-                    <input {...register('price', {required: true})} type="text" className="w-full border rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-sm" placeholder="Enter price product" />
+                    <input {...register('description', { required: true, minLength: 3 })} type="text" className="w-full border rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-sm" placeholder="Enter description product" />
                     {errors.name?.type === 'required' && <span className='text-red-500'>Không được bỏ trống!</span>}
+                    {errors.description?.type === 'minLength' && <span className='text-red-500'>Nhập tối thiểu 3 kí tự!</span>}
                 </div>
 
                 <div>
-                    <input {...register('description', {required: true})} type="text" className="w-full border rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-sm" placeholder="Enter description product" />
-                    {errors.name?.type === 'required' && <span className='text-red-500'>Không được bỏ trống!</span>}
-                </div>
-
-                <div>
-                    <input {...register('image', {required: true})} type="text" className="w-full border rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-sm" placeholder="Enter link image product" />
+                    <input {...register('image', { required: true })} type="text" className="w-full border rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-sm" placeholder="Enter link image product" />
                     {errors.name?.type === 'required' && <span className='text-red-500'>Không được bỏ trống!</span>}
                 </div>
 
@@ -70,7 +77,7 @@ const EditProduct = () => {
                         })
                     }
                 </select>
-                
+
                 <div className="flex items-center justify-center">
                     <button type="submit" className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white">
                         Update Product

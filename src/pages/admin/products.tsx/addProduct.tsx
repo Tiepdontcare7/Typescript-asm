@@ -22,12 +22,17 @@ const AddProductPage = () => {
     const listCategory = useSelector((state: { category: { listCategory: ICategory[] } }) => state.category.listCategory);
 
     const onFinish = (values: IProduct) => {
-        addProduct(values)
-        .then((res) => {
-            dispatch(addProducts(res.data))
-            alert('Added products')
-            next('/admin/dashboard')
+        const cleanedData = {};
+        Object.keys(values).forEach(key => {
+            cleanedData[key] = typeof values[key] === "string" ? values[key].trim() : values[key];
         });
+
+        addProduct(cleanedData)
+            .then((res) => {
+                dispatch(addProducts(res.data))
+                alert('Added products')
+                next('/admin/dashboard')
+            });
     };
 
     const onFinishFailed = (errorInfo: unknown) => {
@@ -41,7 +46,7 @@ const AddProductPage = () => {
             name="basic"
             labelCol={{ span: 8 }}
             wrapperCol={{ span: 16 }}
-            style={{ maxWidth: 700, margin: "150px auto", border: "1px solid #999",boxShadow: "0 0 10px #ccc" , borderRadius: "5px", padding: "40px 130px 40px 0" }}
+            style={{ maxWidth: 700, margin: "150px auto", border: "1px solid #999", boxShadow: "0 0 10px #ccc", borderRadius: "5px", padding: "40px 130px 40px 0" }}
             initialValues={{ remember: true }}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
@@ -50,7 +55,9 @@ const AddProductPage = () => {
             <Form.Item<FieldType>
                 label="Name"
                 name="name"
-                rules={[{ required: true, message: 'Please input your username!' }]}
+                rules={[{ required: true, message: 'Please input your username!' },
+                { min: 5, message: 'Nhập tối thiểu 5 kí tự!' }
+            ]}
             >
                 <Input />
             </Form.Item>
@@ -66,7 +73,9 @@ const AddProductPage = () => {
             <Form.Item<FieldType>
                 label="Description"
                 name="description"
-                rules={[{ required: true, message: 'Please input your description!' }]}
+                rules={[{ required: true, message: 'Please input your description!' },
+                        { min: 5, message: 'Nhập tối thiểu 5 kí tự!' }
+                ]}
             >
                 <Input />
             </Form.Item>
