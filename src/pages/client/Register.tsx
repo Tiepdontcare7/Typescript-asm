@@ -5,6 +5,7 @@ import bcryptjs from 'bcryptjs'
 import { useNavigate, Link } from 'react-router-dom'
 import { addUser } from '../../api/user'
 import { addUserss } from '../../redux/userSlice'
+import { trimData } from '../../utils'
 
 interface IUser {
     id: number,
@@ -21,6 +22,7 @@ function Register() {
     const listUser = useSelector((state: { user: { listUser: IUser[] } }) => state.user.listUser);
 
     const onHandleAdd = async (data: any) => {
+        data = trimData(data)
         const filUser = listUser.find(a => a.username === data.username)
 
         if (filUser) {

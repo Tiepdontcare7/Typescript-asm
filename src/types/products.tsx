@@ -1,5 +1,5 @@
 export interface IProduct {
-    id: number | string,
+    id?: number | string,
     name: string,
     price: number,
     description: string,
@@ -9,5 +9,5 @@ export interface IProduct {
 
 export interface ICategory {
     id: number | string,
-    name: string,
+    name: string
 }

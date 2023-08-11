@@ -16,14 +16,14 @@ const EditProduct = () => {
     const listCategory = useSelector((state: { category: { listCategory: ICategory[] } }) => state.category.listCategory);
 
     useEffect(() => {
-        const detailProduct = listProduct.find(p => p.id === +id)
+        const detailProduct = listProduct.find(p => p.id == id)
         reset(detailProduct)
     }, [listProduct, id, reset]);
 
     const onHandleEdit = (data: object) => {
         const cleanedData = trimData(data)
 
-        editProduct(+id, cleanedData)
+        editProduct(id, cleanedData)
             .then((res) => {
                 dispatch(editProducts(res.data))
                 alert('Edit Product Success')

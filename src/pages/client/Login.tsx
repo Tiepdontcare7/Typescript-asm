@@ -1,8 +1,9 @@
 
 import { useSelector } from 'react-redux'
-import { useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import bcryptjs from 'bcryptjs'
+import { trimData } from '../../utils'
 
 interface IUser {
     id?: number,
@@ -22,10 +23,12 @@ function Login() {
 
     const listUser = useSelector((state: { user: { listUser: IUser[] } }) => state.user.listUser);
 
-    const onHandleAdd:(data: Idata) => void = async(data:Idata) => {
-        const filUser:IUser | undefined = listUser.find(a => a.username === data.username)
+    const onHandleAdd:SubmitHandler<Idata> = async (data) => {
+        const dataclean = trimData(data);
+        
+        const filUser: IUser | undefined = listUser.find(a => a.username === dataclean.username)
         if (filUser) {
-            const checkPassword = await bcryptjs.compare(data.password, filUser.password)
+            const checkPassword = await bcryptjs.compare(dataclean.password, String(filUser.password))
             if (!checkPassword) {
                 alert('Sai mật khẩu, kiểm tra lại!')
             } else {

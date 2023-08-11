@@ -12,7 +12,7 @@ const DashboardPage = () => {
     const listProduct = useSelector((state: { product: { listProduct: IProduct[] } }) => state.product.listProduct);
     const listCategory = useSelector((state: { category: { listCategory: ICategory[] } }) => state.category.listCategory);
 
-    const handleDelete = (id: number) => {
+    const handleDelete = (id: string | number | undefined) => {
         confirm(`Are you sure you want to delete?`) ?
             deleteProduct(id).then(() => {
                 dispatch(postProducts(listProduct.filter(product => product.id !== id)))

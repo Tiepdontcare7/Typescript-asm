@@ -9,11 +9,11 @@ import { trimData } from '../../../utils';
 const { Option } = Select;
 
 type FieldType = {
-    name?: string;
-    price?: number;
-    description?: string;
-    image?: string;
-    categoryId?: number
+    name: string;
+    price: number;
+    description: string;
+    image: string;
+    categoryId: number
 };
 
 const AddProductPage = () => {
@@ -22,7 +22,7 @@ const AddProductPage = () => {
     const listCategory = useSelector((state: { category: { listCategory: ICategory[] } }) => state.category.listCategory);
 
     const onFinish = (values: IProduct) => {
-        const cleanedData:any = trimData(values)
+        const cleanedData = trimData(values)
         addProduct(cleanedData)
             .then((res) => {
                 dispatch(addProducts(res.data))

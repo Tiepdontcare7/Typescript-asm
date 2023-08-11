@@ -11,7 +11,7 @@ const deleteUser = (id:number) => {
     return instance.delete(`/users/${id}`)
 }
 
-const editUser = (id: number | string , obj:object) => {
+const editUser = (id: number | string | undefined , obj:object) => {
     return instance.put(`/users/${id}`, obj)
 }
 

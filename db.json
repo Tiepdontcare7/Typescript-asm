@@ -26,7 +26,7 @@
     },
     {
       "id": 4,
-      "name": "Trâu q",
+      "name": "Trâu qqq",
       "price": "300",
       "image": "https://kenh14cdn.com/thumb_w/660/2020/7/17/brvn-15950048783381206275371.jpg",
       "description": "Description 333",
@@ -43,8 +43,12 @@
       "name": "Danh muc 2"
     },
     {
-      "name": "fffff",
+      "name": "vvvvvvvv",
       "id": 4
+    },
+    {
+      "name": "kokokoi",
+      "id": 5
     }
   ],
   "users": [
@@ -53,6 +57,18 @@
       "password": "$2a$07$ei9jT8uTfiHwZhZJxSguKOCnFDBJUvryMADwjrSlBQXGzyYebfDoS",
       "roleId": "1",
       "id": 1
+    },
+    {
+      "username": "tatiep179@gmail.com",
+      "password": "$2a$07$e01xOvR4HraSwxBg5vv3xO6wvRUR2w.rBdXaluwYMUXSc06sf9cjK",
+      "roleId": "0",
+      "id": 2
+    },
+    {
+      "username": "taviettan",
+      "password": "$2a$07$ulTnFa4/qcgfTBOfE8/z8uAzkEmiy4TAzX2YYOwvEfU02oZxh2dY2",
+      "roleId": "0",
+      "id": 3
     }
   ],
   "roles": [

@@ -5,7 +5,7 @@ const SideBar = () => {
         <div className="border-r-2 w-[20%] h-full flex flex-col justify-between">
             <div className="px-4 py-6">
                 <span className="grid h-14 w-full place-content-center rounded-lg bg-gray-300 text-xs text-gray-600">
-                    Logo
+                    Tieptn
                 </span>
                 <ul className="mt-6 space-y-1">
                     <li>

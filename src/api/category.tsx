@@ -7,11 +7,11 @@ const getAllCategory = () => {
 const addCategory = (obj: object) => {
     return instance.post('/categories', obj)
 }
-const editCategory = (id: number | string, obj: object) => {
+const editCategory = (id: string  | undefined, obj: object) => {
     return instance.put(`/categories/${id}`, obj)
 }
 
-const deleteCategory = (id: number | string) => {
+const deleteCategory = (id: number | string | undefined) => {
     return instance.delete(`/categories/${id}`)
 }
 

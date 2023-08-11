@@ -1,25 +1,20 @@
 import { useSelector } from 'react-redux'
-import { useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { addUser } from '../../../api/user'
 import { addUserss } from '../../../redux/userSlice'
 import bcryptjs from 'bcryptjs'
 import { trimData, useDispatchAndNext } from '../../../utils'
+import {IUser} from '../../../types/user'
 
-interface IUser {
-    id: number,
-    username: string,
-    password: number,
-    roleId: number
-}
 
 const AddUser = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm({ shouldUnregister: false })
+    const { register, handleSubmit, formState: { errors } } = useForm<IUser>({ shouldUnregister: false })
     const {dispatch, next} = useDispatchAndNext()
 
     const listUser = useSelector((state: { user: { listUser: IUser[] } }) => state.user.listUser);
 
-    const onHandleAdd = async (data: any) => {
-        const cleanedData: any = trimData(data)
+    const onHandleAdd:SubmitHandler<IUser> = async (data:IUser) => {
+        const cleanedData:any = trimData(data)
 
         const filUser = listUser.find(a => a.username === cleanedData.username)
 
@@ -31,7 +26,7 @@ const AddUser = () => {
             return
         } else {
             cleanedData.cfpassword = undefined;
-            cleanedData.password = await bcryptjs.hash(data.password, 7)
+            cleanedData.password = await bcryptjs.hash(String(data.password), 7)
             addUser(cleanedData)
                 .then((res) => {
                     dispatch(addUserss(res.data))

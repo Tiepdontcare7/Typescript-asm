@@ -15,13 +15,13 @@ const EditCategory = () => {
     const listCategory = useSelector((state: { category: { listCategory: ICategory[] } }) => state.category.listCategory);
     
     useEffect(()=> {
-        reset(listCategory.find(c => c.id === +id))
+        reset(listCategory.find(c => c.id == id))
     }, [id, reset, listCategory])
 
     const onHandleAdd = (data:object) => {
         const cleanedData = trimData(data)
 
-        editCategory(+id , cleanedData)
+        editCategory(id , cleanedData)
         .then((res) => {
             dispatch(editCategorys(res.data))
             alert('Edit Category Success')

@@ -20,13 +20,13 @@ const EditUser = () => {
     const listUser = useSelector((state: { user: { listUser: IUser[] } }) => state.user.listUser);
     
     useEffect(()=> {
-        reset(listUser.find(u => u.id === +id))
+        reset(listUser.find(u => u.id == id))
     }, [id, reset, listUser])
 
     const onHandleAdd = (data:object) => {
         const cleanedData = trimData(data)
 
-        editUser(+id , cleanedData)
+        editUser(id , cleanedData)
         .then((res) => {
             dispatch(editUserss(res.data))
             alert('Edit User Success')

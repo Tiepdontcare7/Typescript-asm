@@ -7,7 +7,7 @@ import { getAllUser } from "./api/user";
 import { postCategoryProducts } from "./redux/categoryProductSlice";
 import { postProducts } from "./redux/productSlice";
 import { postUser } from "./redux/userSlice";
-import {HomePage, DetailPage, Register, Login} from './pages/client'
+import { HomePage, DetailPage, Register, Login } from './pages/client'
 import NotFoundPage from "./pages/404/notFound";
 
 
@@ -41,7 +41,7 @@ function App() {
 
           <Route path="/register" element={< Register />} />
           <Route path="/login" element={< Login />} />
-          
+
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>

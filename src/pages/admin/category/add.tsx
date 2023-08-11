@@ -3,20 +3,18 @@ import { useSelector } from 'react-redux'
 import { useDispatchAndNext, trimData } from '../../../utils'
 import { addCategorys } from '../../../redux/categoryProductSlice'
 import { addCategory } from '../../../api/category'
+import { ICategory } from '../../../types/products'
 
-interface Icategory {
-    name: string
-}
 
 const AddCategory = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm<Icategory>({ shouldUnregister: false })
+    const { register, handleSubmit, formState: { errors } } = useForm<ICategory>({ shouldUnregister: false })
     const { dispatch, next } = useDispatchAndNext()
 
-    const listCategory = useSelector((state: { category: { listCategory: Icategory[] } }) => state.category.listCategory)
+    const listCategory = useSelector((state: { category: { listCategory: ICategory[] } }) => state.category.listCategory)
 
-    const onHandleAdd: SubmitHandler<Icategory> = (data) => {
+    const onHandleAdd: SubmitHandler<ICategory> = (data) => {
         const cleanedData = trimData(data)
-        const filLCate: Icategory | undefined = listCategory.find((c: { name: string }) => c.name === cleanedData.name)
+        const filLCate = listCategory.find(c => c.name === cleanedData.name)
 
         if (filLCate) {
             alert('Danh mục đã tồn tại!')
