@@ -42,7 +42,6 @@ const AddCategory = () => {
                     {errors.name?.type === 'required' && <span className='text-red-500'>Không được bỏ trống name!</span>}
                     {errors.name?.type === 'minLength' && <span className='text-red-500'>Name tối thiểu 3 kí tự!</span>}
                 </div>
-
                 <div className="flex items-center justify-center">
                     <button type="submit" className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white">
                         Update Product

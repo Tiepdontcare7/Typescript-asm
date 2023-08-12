@@ -14,14 +14,13 @@ const Header = () => {
 
     const listUser = useSelector((state: { user: { listUser: IUser[] } }) => state.user.listUser);
 
-    // if (usernameLocal) {
-        const checkAdmin = listUser.find(u => u.username == usernameLocal)
-    // }
+    const checkAdmin = listUser.find(u => u.username == usernameLocal)
 
     const deleteLocal = () => {
         localStorage.removeItem("username")
         window.location.reload();
     }
+    
     return (
         <header className="bg-white">
             <div className="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">
@@ -78,9 +77,9 @@ const Header = () => {
                                 </Link>
                             </div>
                             )}
-                        
+
                         {
-                            checkAdmin?.roleId == 1 ? (<Link className="cursor-pointer bg-slate-700 text-white p-1 px-2 text-sm rounded" to={'/admin/dashboard'}>admin</Link>) : undefined 
+                            checkAdmin?.roleId == 1 ? (<Link className="cursor-pointer bg-slate-700 text-white p-1 px-2 text-sm rounded" to={'/admin/dashboard'}>admin</Link>) : undefined
                         }
                         <button className="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden">
                             <span className="sr-only">Toggle menu</span>
